@@ -140,7 +140,7 @@ function _get_editor() {
 function _kubeconfig_path() {
     if [[ "$1" == "" ]]; then
         echo "${KUBECONFIG:-${HOME}/.kube/config}"
-    elif [[ "${1:0:2}" == "./" || "${1:0:1}" == "/" || "${1:0:1}" == "~" ]]; then
+    elif [[ "${1:0:2}" == "./" || "${1:0:3}" == "../" || "${1:0:1}" == "/" || "${1:0:1}" == "~" ]]; then
         echo "$1"
     else
         echo "${_kubeconfigs_dir}/${1}"
