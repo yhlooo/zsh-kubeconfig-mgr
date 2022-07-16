@@ -22,4 +22,7 @@ function kubeconfig_prompt_info() {
 
 # set alias
 alias lkc='kcmgr ls'
+alias rkc='kcmgr show'
 alias skc='kcmgr set'
+alias dkc='kcmgr del'
+alias ekc='kcmgr edit'
