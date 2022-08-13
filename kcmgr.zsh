@@ -49,6 +49,18 @@ function kcmgr() {
     esac
 }
 
+# completion
+compdef _kcmgr_comp kcmgr
+function _kcmgr_comp() {
+    case ${words[2]} in
+        (show|set|edit|del|delete)
+            local -a kubeconfigs
+            kubeconfigs=("${(@f)$(_kcmgr_list --raw)}")
+            _describe 'kubeconfig' kubeconfigs
+        ;;
+    esac
+}
+
 # kcmgr list
 # list kubeconfig
 function _kcmgr_list() {
@@ -63,10 +75,12 @@ function _kcmgr_list() {
 
         # add prefix, indent
         # TODO: and color
-        if [[ "${_kubeconfigs_dir}/${f}" == "$KUBECONFIG" ]]; then  # current kubeconfig
-            f="* ${f}"
-        else
-            f="  ${f}"
+        if [[ ! "$@" =~ "--raw" ]]; then
+            if [[ "${_kubeconfigs_dir}/${f}" == "$KUBECONFIG" ]]; then  # current kubeconfig
+                f="* ${f}"
+            else
+                f="  ${f}"
+            fi
         fi
 
         # print it
