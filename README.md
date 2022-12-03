@@ -1,32 +1,34 @@
+English | [简体中文](README_CN.md)
+
 # zsh-kubeconfig-mgr
 
-> 该项目是一个 [Zsh](https://www.zsh.org/) 和 [oh-my-zsh](https://ohmyz.sh/) 的插件，旨在更便捷地管理和使用多个 kubeconfig 文件。
+> This project is a plugin for [Zsh](https://www.zsh.org/) and [oh-my-zsh](https://ohmyz.sh/), Designed to make managing and using multiple kubeconfig files easier.
 
-某些情况下，可能需要操作多个不同的 [Kubernetes](https://kubernetes.io/) 集群，每个集群有不一样的凭证。可能因为各种原因，将它们合并到一个 kubeconfig 文件中并不方便。因此在操作不同的集群时需要经常性地将变量 `$KUBECONFIG` 设置为不同的值，或者在执行 `kubectl` 使用参数 `--kubeconfig /path/to/config ...` 指定不同的 kubeconfig 文件，这些操作都十分繁琐且容易出错。
+In some cases, it may be necessary to operate multiple different [Kubernetes](https://kubernetes.io/) clusters, each with different credentials. And it might not be convenient to combine them into one kubeconfig file for various reasons. Therefore, when operating different clusters, you must frequently set the environment variable `$KUBECONFIG` to different values, or use the parameter `--kubeconfig /path/to/config ...` to specify different kubeconfig files when executing `kubectl`, these operations are very tedious and error-prone.
 
-该项目将提供解决这些问题的一个思路。
+This project will provide an idea to solve these problems.
 
-## 安装
+## Installation
 
-### 1 安装插件
+### 1 Install Plugin
 
 **Oh-my-zsh:**
 
-需要先安装 [oh-my-zsh](https://ohmyz.sh/) ，然后：
+If you have installed [oh-my-zsh](https://ohmyz.sh/), then:
 
-1. 克隆项目源码到 oh-my-zsh 的插件目录
+1. Clone this repository in oh-my-zsh's plugins directory:
    ```sh
    git clone https://github.com/keybrl/zsh-kubeconfig-mgr.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-kubeconfig-mgr
    ```
-2. 在 `~/.zshrc` 中配置启用该插件
+2. Activate the plugin in `~/.zshrc` :
    ```zsh
    plugins=( [plugins...] zsh-kubeconfig-mgr)
    ```
-3. 重启 zsh （比如重新开启一个终端）
+3. Restart zsh (such as by opening a new instance of your terminal emulator).
 
 **Zsh:**
 
-如果没有安装 oh-my-zsh ，直接克隆项目源码并执行 `source` 即可：
+If you don't have oh-my-zsh installed, you can simply clone this repository and source the script:
 
 ```sh
 git clone https://github.com/keybrl/zsh-kubeconfig-mgr.git
@@ -34,87 +36,87 @@ source ./zsh-kubeconfig-mgr/zsh-kubeconfig-mgr.zsh
 echo "source ${(q-)PWD}/zsh-kubeconfig-mgr/zsh-kubeconfig-mgr.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
 ```
 
-### 2 设置命令行提示
+### 2 Set command line prompt
 
-该插件提供了命令行提示，可根据需要添加到变量 `PROMPT` 或 `RPROMPT` 中
+The plugin provides a command line prompt which can be added to the variable `PROMPT` or `RPROMPT` as you need
 
-例如在 `~/.zshrc` 末尾添加：
-
-```zsh
-PROMPT='$(kubeconfig_prompt_info) '$PROMPT
-```
-
-## 使用
-
-### 命令行提示
-
-函数 `kubeconfig_prompt_info` 会打印当前 `$KUBECONFIG` 变量指定的 kubeconfig 。其值有如下几种情形：
-
-- `<default>` 表示 `$KUBECONFIG` 值为空，此时生效的 kubeconfig 为 `~/.kube/config`
-- `config` 表示 `~/.kube/configs/config`
-- `./path/to/config` 表示 kubeconfig 的相对路径
-- `~/path/to/config` 表示 kubeconfig 的相对于 `$HOME` 的路径
-- `/path/to/config` 表示 kubeconfig 的绝对路径
-
-打印的颜色表示对应 kubeconfig 是否存在：
-
-- 绿色：存在
-- 红色：不存在或不是个文件
-
-可根据需要添加到变量 `PROMPT` 或 `RPROMPT` 中
-
-例如在 `~/.zshrc` 末尾添加：
+Simply add something like the following to the end of `~/.zshrc` :
 
 ```zsh
 PROMPT='$(kubeconfig_prompt_info) '$PROMPT
 ```
 
-效果：
+## Usage
+
+### Command line prompt
+
+The function `kubeconfig_prompt_info` will print the kubeconfig specified by the current environment variable `$KUBECONFIG` . Its value has the following situations:
+
+- `<default>` means `$KUBECONFIG` is empty, the active kubeconfig is  `~/.kube/config`
+- `config` means `~/.kube/configs/config`
+- `./path/to/config` indicates the relative path to kubeconfig
+- `~/path/to/config` indicates the path of the kubeconfig relative to `$HOME`
+- `/path/to/config` indicates the absolute path of kubeconfig
+
+The printed color indicates whether the corresponding kubeconfig exists or not:
+
+- Green: Exist
+- Red: Not exist or not a file
+
+Example:
+
+Add the following to the end of `~/.zshrc` :
+
+```zsh
+PROMPT='$(kubeconfig_prompt_info) '$PROMPT
+```
+
+Effect:
 
 ![prompt_info](docs/images/prompt_info.png)
 
-### 列出 kubeconfig
+### List kubeconfig
 
-`kcmgr ls` ， `kcmgr list` 或 `lkc` (**l**ist **k**ube**c**onfig)
+`kcmgr ls` , `kcmgr list` or `lkc` (**l**ist **k**ube**c**onfig)
 
-列出 `~/.kube/configs/` 目录下的所有文件
+list all filenames in the directory `~/.kube/configs/`
 
 ![kcmgr_ls](docs/images/kcmgr_ls.png)
 
-### 展示 kubeconfig 内容
+### Show the content of kubeconfig
 
-`kcmgr show [config]` 或 `rkc [config]` (**r**ead **k**ube**c**onfig)
+`kcmgr show [config]` or `rkc [config]` (**r**ead **k**ube**c**onfig)
 
-- `kcmgr show` 展示当前生效的 kubeconfig 内容
-- `kcmgr show <config>` 展示指定 kubeconfig 内容
+- `kcmgr show` Show the content of the currently effective kubeconfig
+- `kcmgr show <config>` Show the content of the specified kubeconfig
 
 ![kcmgr_show](docs/images/kcmgr_show.png)
 
-### 切换 kubeconfig
+### Set kubeconfig
 
-`kcmgr set [config]` 或 `skc [config]` (**s**et **k**ube**c**onfig)
+`kcmgr set [config]` or `skc [config]` (**s**et **k**ube**c**onfig)
 
-- `kcmgr set` 等同于 `unset KUBECONFIG`
-- `kcmgr set <config>` 设置 `$KUBECONFIG` 指向指定 kubeconfig
+- `kcmgr set` equivalent to `unset KUBECONFIG`
+- `kcmgr set <config>` set `$KUBECONFIG` to the specified kubeconfig
 
 ![kcmgr_set](docs/images/kcmgr_set.png)
 
-### 删除 kubeconfig
+### Delete kubeconfig
 
-`kcmgr delete [config]` ， `kcmgr del [config]` 或 `dkc [config]` (**d**elete **k**ube**c**onfig)
+`kcmgr delete [config]` , `kcmgr del [config]` or `dkc [config]` (**d**elete **k**ube**c**onfig)
 
-- `kcmgr delete` 删除当前生效的 kubeconfig
-- `kcmgr delete <config>` 删除指定 kubeconfig
+- `kcmgr delete` Delete the currently effective kubeconfig
+- `kcmgr delete <config>` Delete the specified kubeconfig
 
 ![kcmgr_del](docs/images/kcmgr_del.png)
 
-### 编辑 / 新增 kubeconfig
+### Edit / Add kubeconfig
 
-`kcmgr edit [config]` 或 `ekc [config]` (**e**dit **k**ube**c**onfig)
+`kcmgr edit [config]` or `ekc [config]` (**e**dit **k**ube**c**onfig)
 
-- `kcmgr edit` 编辑当前生效的 kubeconfig
-- `kcmgr edit <config>` 编辑指定 kubeconfig
+- `kcmgr edit` Edit the currently effective kubeconfig
+- `kcmgr edit <config>` Edit the specified kubeconfig
 
-编辑时优先使用 `vim` ，如果 `vim` 不存在则使用 `vi` 。如果 kubeconfig 不存在会被自动创建。
+Prefer `vim` , or `vi` if `vim` not found. If kubeconfig does not exist it will be created.
 
 ![kcmgr_edit](docs/images/kcmgr_edit.gif)
