@@ -2,6 +2,8 @@ English | [简体中文](README_CN.md)
 
 # zsh-kubeconfig-mgr
 
+[![License](https://img.shields.io/github/license/keybrl/zsh-kubeconfig-mgr)](LICENSE)
+
 > This project is a plugin for [Zsh](https://www.zsh.org/) and [oh-my-zsh](https://ohmyz.sh/), Designed to make managing and using multiple kubeconfig files easier.
 
 In some cases, it may be necessary to operate multiple different [Kubernetes](https://kubernetes.io/) clusters, each with different credentials. And it might not be convenient to combine them into one kubeconfig file for various reasons. Therefore, when operating different clusters, you must frequently set the environment variable `$KUBECONFIG` to different values, or use the parameter `--kubeconfig /path/to/config ...` to specify different kubeconfig files when executing `kubectl`, these operations are very tedious and error-prone.

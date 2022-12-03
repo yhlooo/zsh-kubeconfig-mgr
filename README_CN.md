@@ -2,6 +2,8 @@
 
 # zsh-kubeconfig-mgr
 
+[![License](https://img.shields.io/github/license/keybrl/zsh-kubeconfig-mgr)](LICENSE)
+
 > 该项目是一个 [Zsh](https://www.zsh.org/) 和 [oh-my-zsh](https://ohmyz.sh/) 的插件，旨在更便捷地管理和使用多个 kubeconfig 文件。
 
 某些情况下，可能需要操作多个不同的 [Kubernetes](https://kubernetes.io/) 集群，每个集群有不一样的凭证。可能因为各种原因，将它们合并到一个 kubeconfig 文件中并不方便。因此在操作不同的集群时需要经常性地将变量 `$KUBECONFIG` 设置为不同的值，或者在执行 `kubectl` 使用参数 `--kubeconfig /path/to/config ...` 指定不同的 kubeconfig 文件，这些操作都十分繁琐且容易出错。
