@@ -2,7 +2,7 @@
 
 # zsh-kubeconfig-mgr
 
-[![License](https://img.shields.io/github/license/keybrl/zsh-kubeconfig-mgr)](LICENSE)
+[![License](https://img.shields.io/github/license/yhlooo/zsh-kubeconfig-mgr)](LICENSE)
 
 > 该项目是一个 [Zsh](https://www.zsh.org/) 和 [oh-my-zsh](https://ohmyz.sh/) 的插件，旨在更便捷地管理和使用多个 kubeconfig 文件。
 
@@ -20,7 +20,7 @@
 
 1. 克隆项目源码到 oh-my-zsh 的插件目录
    ```sh
-   git clone https://github.com/keybrl/zsh-kubeconfig-mgr.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-kubeconfig-mgr
+   git clone https://github.com/yhlooo/zsh-kubeconfig-mgr.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-kubeconfig-mgr
    ```
 2. 在 `~/.zshrc` 中配置启用该插件
    ```zsh

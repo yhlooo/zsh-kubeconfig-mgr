@@ -2,7 +2,7 @@ English | [简体中文](README_CN.md)
 
 # zsh-kubeconfig-mgr
 
-[![License](https://img.shields.io/github/license/keybrl/zsh-kubeconfig-mgr)](LICENSE)
+[![License](https://img.shields.io/github/license/yhlooo/zsh-kubeconfig-mgr)](LICENSE)
 
 > This project is a plugin for [Zsh](https://www.zsh.org/) and [oh-my-zsh](https://ohmyz.sh/), Designed to make managing and using multiple kubeconfig files easier.
 
@@ -20,7 +20,7 @@ If you have installed [oh-my-zsh](https://ohmyz.sh/), then:
 
 1. Clone this repository in oh-my-zsh's plugins directory:
    ```sh
-   git clone https://github.com/keybrl/zsh-kubeconfig-mgr.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-kubeconfig-mgr
+   git clone https://github.com/yhlooo/zsh-kubeconfig-mgr.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-kubeconfig-mgr
    ```
 2. Activate the plugin in `~/.zshrc` :
    ```zsh
